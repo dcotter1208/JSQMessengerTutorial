@@ -61,10 +61,10 @@
             </objects>
             <point key="canvasLocation" x="273" y="302"/>
         </scene>
-        <!--View Controller-->
+        <!--ChatVC-->
         <scene sceneID="l5W-zF-K09">
             <objects>
-                <viewController id="XaY-wX-rM2" sceneMemberID="viewController">
+                <viewController id="XaY-wX-rM2" customClass="ChatVC" customModule="UdemyJSQMessenger" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="wVF-sZ-c5g"/>
                         <viewControllerLayoutGuide type="bottom" id="Owm-Ht-DiN"/>
