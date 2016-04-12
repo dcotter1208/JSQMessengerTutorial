@@ -1,0 +1,6 @@
+framework module Pods_UdemyJSQMessenger {
+  umbrella header "Pods-UdemyJSQMessenger-umbrella.h"
+
+  export *
+  module * { export * }
+}

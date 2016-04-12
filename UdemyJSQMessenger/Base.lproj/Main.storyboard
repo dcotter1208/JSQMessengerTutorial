@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="14F1605" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+    </dependencies>
+    <scenes>
+        <!--LoginVC-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="LoginVC" customModule="UdemyJSQMessenger" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ChatBubble" translatesAutoresizingMaskIntoConstraints="NO" id="XNW-hH-vAl">
+                                <rect key="frame" x="172" y="172" width="256" height="256"/>
+                            </imageView>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Fcn-dF-o4g">
+                                <rect key="frame" x="172" y="436" width="256" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jwb-m1-cqt">
+                                <rect key="frame" x="233" y="474" width="134" height="30"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="134" id="XnU-w4-O8b"/>
+                                </constraints>
+                                <state key="normal" title="Enter">
+                                    <color key="titleColor" red="0.1215686275" green="0.38431372549999998" blue="0.63529411759999999" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="enterChatButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fOj-PH-7k9"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.1215686275" green="0.38431372549999998" blue="0.63529411759999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="XNW-hH-vAl" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="8VW-y4-mTR"/>
+                            <constraint firstItem="Fcn-dF-o4g" firstAttribute="centerX" secondItem="XNW-hH-vAl" secondAttribute="centerX" id="Gh8-r2-mng"/>
+                            <constraint firstItem="Fcn-dF-o4g" firstAttribute="top" secondItem="XNW-hH-vAl" secondAttribute="bottom" constant="8" id="KJd-Dc-oku"/>
+                            <constraint firstItem="XNW-hH-vAl" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Z7N-je-KPV"/>
+                            <constraint firstItem="jwb-m1-cqt" firstAttribute="centerX" secondItem="Fcn-dF-o4g" secondAttribute="centerX" id="az1-t5-P4G"/>
+                            <constraint firstItem="jwb-m1-cqt" firstAttribute="top" secondItem="Fcn-dF-o4g" secondAttribute="bottom" constant="8" id="iYc-Gz-GLh"/>
+                            <constraint firstItem="Fcn-dF-o4g" firstAttribute="width" secondItem="XNW-hH-vAl" secondAttribute="width" id="jcj-0i-vgD"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="enterChatButton" destination="jwb-m1-cqt" id="J3O-uv-J19"/>
+                        <outlet property="logoImageView" destination="XNW-hH-vAl" id="sG1-YN-59b"/>
+                        <outlet property="usernameTextField" destination="Fcn-dF-o4g" id="Oaq-A2-l0Z"/>
+                        <segue destination="XaY-wX-rM2" kind="show" identifier="startChatting" id="tVw-o2-8iV"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="273" y="302"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="l5W-zF-K09">
+            <objects>
+                <viewController id="XaY-wX-rM2" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="wVF-sZ-c5g"/>
+                        <viewControllerLayoutGuide type="bottom" id="Owm-Ht-DiN"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ED5-6F-P3y">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ITJ-LY-TbY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="943" y="302"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="ChatBubble" width="256" height="256"/>
+    </resources>
+</document>
