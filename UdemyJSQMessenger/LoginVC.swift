@@ -54,7 +54,11 @@ class LoginVC: UIViewController {
     
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        
+        if let destinationVC = segue.destinationViewController as? ChatVC {
+            destinationVC.senderId = UIDevice.currentDevice().identifierForVendor?.UUIDString
+            destinationVC.senderDisplayName = usernameTextField.text
+            destinationVC.chatRoomName = "Chatter Room 1"
+        }
     }
 
 }
