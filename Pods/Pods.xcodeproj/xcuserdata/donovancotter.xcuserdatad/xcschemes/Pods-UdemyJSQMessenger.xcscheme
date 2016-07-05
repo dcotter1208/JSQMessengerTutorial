@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '3BE54FBA13936AFCF89AC845'
+               BlueprintIdentifier = '579E68295CF5FF25A155A71F'
                BlueprintName = 'Pods-UdemyJSQMessenger'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'Pods_UdemyJSQMessenger.framework'>

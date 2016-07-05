@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		313BC59B94977092F14D4956 /* Pods_UdemyJSQMessenger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A53B9AA833C6289D0DACE84E /* Pods_UdemyJSQMessenger.framework */; };
+		132C09ECF70B54CAEDBE5631 /* Pods_UdemyJSQMessenger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40E040047E39A60AD18B09B6 /* Pods_UdemyJSQMessenger.framework */; };
+		C02F34701CBD58C500C1AF9D /* ChatVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02F346F1CBD58C500C1AF9D /* ChatVC.swift */; };
+		C0688E481CBEDDC500760574 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0688E471CBEDDC500760574 /* Message.swift */; };
 		C0790F631CBD35970016DC71 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0790F621CBD35970016DC71 /* AppDelegate.swift */; };
 		C0790F651CBD35970016DC71 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0790F641CBD35970016DC71 /* LoginVC.swift */; };
 		C0790F681CBD35970016DC71 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0790F661CBD35970016DC71 /* Main.storyboard */; };
@@ -17,7 +19,10 @@
 
 /* Begin PBXFileReference section */
 		37E3B76D55C010194333DE4D /* Pods-UdemyJSQMessenger.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UdemyJSQMessenger.debug.xcconfig"; path = "Pods/Target Support Files/Pods-UdemyJSQMessenger/Pods-UdemyJSQMessenger.debug.xcconfig"; sourceTree = "<group>"; };
-		A53B9AA833C6289D0DACE84E /* Pods_UdemyJSQMessenger.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UdemyJSQMessenger.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		40E040047E39A60AD18B09B6 /* Pods_UdemyJSQMessenger.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UdemyJSQMessenger.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C02F346F1CBD58C500C1AF9D /* ChatVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatVC.swift; sourceTree = "<group>"; };
+		C02F34711CBD5ABD00C1AF9D /* UdemyJSQMessenger-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UdemyJSQMessenger-Bridging-Header.h"; sourceTree = "<group>"; };
+		C0688E471CBEDDC500760574 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		C0790F5F1CBD35970016DC71 /* UdemyJSQMessenger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UdemyJSQMessenger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0790F621CBD35970016DC71 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C0790F641CBD35970016DC71 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
@@ -33,7 +38,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				313BC59B94977092F14D4956 /* Pods_UdemyJSQMessenger.framework in Frameworks */,
+				132C09ECF70B54CAEDBE5631 /* Pods_UdemyJSQMessenger.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,10 +77,13 @@
 			children = (
 				C0790F621CBD35970016DC71 /* AppDelegate.swift */,
 				C0790F641CBD35970016DC71 /* LoginVC.swift */,
+				C02F346F1CBD58C500C1AF9D /* ChatVC.swift */,
 				C0790F661CBD35970016DC71 /* Main.storyboard */,
 				C0790F691CBD35970016DC71 /* Assets.xcassets */,
 				C0790F6B1CBD35970016DC71 /* LaunchScreen.storyboard */,
 				C0790F6E1CBD35970016DC71 /* Info.plist */,
+				C02F34711CBD5ABD00C1AF9D /* UdemyJSQMessenger-Bridging-Header.h */,
+				C0688E471CBEDDC500760574 /* Message.swift */,
 			);
 			path = UdemyJSQMessenger;
 			sourceTree = "<group>";
@@ -83,7 +91,7 @@
 		DA6D285B20EA73B1BDC94DA4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				A53B9AA833C6289D0DACE84E /* Pods_UdemyJSQMessenger.framework */,
+				40E040047E39A60AD18B09B6 /* Pods_UdemyJSQMessenger.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -210,6 +218,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C02F34701CBD58C500C1AF9D /* ChatVC.swift in Sources */,
+				C0688E481CBEDDC500760574 /* Message.swift in Sources */,
 				C0790F651CBD35970016DC71 /* LoginVC.swift in Sources */,
 				C0790F631CBD35970016DC71 /* AppDelegate.swift in Sources */,
 			);
@@ -325,10 +335,13 @@
 			baseConfigurationReference = 37E3B76D55C010194333DE4D /* Pods-UdemyJSQMessenger.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = UdemyJSQMessenger/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.donovan.cotter.UdemyJSQMessenger;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "UdemyJSQMessenger/UdemyJSQMessenger-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -337,10 +350,12 @@
 			baseConfigurationReference = E99FE634969E314C2A4A720D /* Pods-UdemyJSQMessenger.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = UdemyJSQMessenger/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.donovan.cotter.UdemyJSQMessenger;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "UdemyJSQMessenger/UdemyJSQMessenger-Bridging-Header.h";
 			};
 			name = Release;
 		};

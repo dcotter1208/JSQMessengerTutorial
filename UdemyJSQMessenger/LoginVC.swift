@@ -52,9 +52,17 @@ class LoginVC: UIViewController {
         }
     }
     
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?){
+        view.endEditing(true)
+        super.touchesBegan(touches, withEvent: event)
+    }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        
+        if let destinationVC = segue.destinationViewController as? ChatVC {
+            destinationVC.senderId = UIDevice.currentDevice().identifierForVendor?.UUIDString
+            destinationVC.senderDisplayName = usernameTextField.text
+            destinationVC.chatRoomName = "Chatter Room 1"
+        }
     }
 
 }
