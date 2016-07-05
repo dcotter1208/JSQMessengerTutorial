@@ -15,7 +15,7 @@ class ChatVC: JSQMessagesViewController, UIImagePickerControllerDelegate, UINavi
 
     var outgoingBubbleImage: JSQMessagesBubbleImage!
     var incomingBubbleImage: JSQMessagesBubbleImage!
-    var messages = [JSQMessage]()
+    var messages = [Message]()
     var avatars = [String: JSQMessagesAvatarImage]()
     var imagePicker = UIImagePickerController()
     var chatRoomName = String()
@@ -69,6 +69,7 @@ class ChatVC: JSQMessagesViewController, UIImagePickerControllerDelegate, UINavi
 
     }
     
+    
     override func didPressSendButton(button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: NSDate!) {
 //        let message = JSQMessage(senderId: self.senderId, senderDisplayName: self.senderDisplayName, date: date, text: text)
 //        self.messages.append(message)
@@ -108,6 +109,7 @@ class ChatVC: JSQMessagesViewController, UIImagePickerControllerDelegate, UINavi
         }
     }
     
+    
     override func collectionView(collectionView: JSQMessagesCollectionView!, avatarImageDataForItemAtIndexPath indexPath: NSIndexPath!) -> JSQMessageAvatarImageDataSource! {
         
         let message = messages[indexPath.row]
@@ -129,19 +131,89 @@ class ChatVC: JSQMessagesViewController, UIImagePickerControllerDelegate, UINavi
         }
         return cell
     }
+
+    
+    override func collectionView(collectionView: JSQMessagesCollectionView!, attributedTextForCellTopLabelAtIndexPath indexPath: NSIndexPath!) -> NSAttributedString! {
+        let message = messages[indexPath.row]
+        
+        if indexPath.row <= 1 {
+            return JSQMessagesTimestampFormatter.sharedFormatter().attributedTimestampForDate(message.date)
+        } else {
+            let previousMessage = messages[indexPath.row - 1]
+            let elapsedTime = message.date.timeIntervalSinceDate(previousMessage.date)
+            
+            //If the elapsed time is greated than 2 minutes then make the time stamp the time of the message. Otherwise it will show the time in seconds since the last message.
+            if elapsedTime > 120 {
+                return JSQMessagesTimestampFormatter.sharedFormatter().attributedTimestampForDate(message.date)
+            }
+            return nil
+        }
+    }
+    
+    override func collectionView(collectionView: JSQMessagesCollectionView!, layout collectionViewLayout: JSQMessagesCollectionViewFlowLayout!, heightForCellTopLabelAtIndexPath indexPath: NSIndexPath!) -> CGFloat {
+        let message = messages[indexPath.row]
+        
+        if indexPath.row <= 1 {
+            return kJSQMessagesCollectionViewCellLabelHeightDefault
+        } else {
+            let previousMessage = messages[indexPath.row - 1]
+            let elapsedTime = message.date.timeIntervalSinceDate(previousMessage.date)
+            
+            //If the elapsed time is greated than 2 minutes then make the time stamp the time of the message. Otherwise it will show the time in seconds since the last message.
+            if elapsedTime > 120 {
+                return kJSQMessagesCollectionViewCellLabelHeightDefault
+            }
+            return 0.0
+        }
+    }
+    
+    override func collectionView(collectionView: JSQMessagesCollectionView!, layout collectionViewLayout: JSQMessagesCollectionViewFlowLayout!, heightForMessageBubbleTopLabelAtIndexPath indexPath: NSIndexPath!) -> CGFloat {
+        let message = messages[indexPath.row]
+        
+        if indexPath.row <= 1 {
+            return kJSQMessagesCollectionViewCellLabelHeightDefault
+        } else {
+            let previousMessage = messages[indexPath.row - 1]
+            
+            if previousMessage.senderId != message.senderId {
+                return kJSQMessagesCollectionViewCellLabelHeightDefault
+            }
+        }
+            return 0.0
+    }
+    
+    override func collectionView(collectionView: JSQMessagesCollectionView!, attributedTextForMessageBubbleTopLabelAtIndexPath indexPath: NSIndexPath!) -> NSAttributedString! {
+        let message = messages[indexPath.row]
+        
+        if indexPath.row <= 1 {
+            return NSAttributedString(string: message.senderDisplayName)
+        } else {
+            let previousMessage = messages[indexPath.row - 1]
+            
+            if previousMessage.senderId != message.senderId {
+                return NSAttributedString(string: message.senderDisplayName)
+            }
+        }
+        return nil
+    }
     
     //MARK: UIImagePicker Delegate
     func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
-        let JSQImage = JSQPhotoMediaItem(image: image)
-        let message = JSQMessage(senderId: self.senderId, senderDisplayName: self.senderDisplayName, date: NSDate(), media: JSQImage)
-        self.messages.append(message)
+
+        let image = resizeImage(image)
         
-        if self.avatars[senderId] == nil {
-            setupAvatarColor(senderId, name: senderDisplayName, incoming: false)
+        self.dismissViewControllerAnimated(true) { () -> Void in
+            let imageData = UIImagePNGRepresentation(image)!
+            let base64String = imageData.base64EncodedStringWithOptions(.Encoding64CharacterLineLength)
+            
+            let photoMsg = ["text": base64String, "mediaType": MediaType.Photo.rawValue, "senderId": self.senderId, "senderName": self.senderDisplayName, "timestamp": NSDate().timeIntervalSince1970]
+            
+            self.firebaseRef.childByAutoId().setValue(photoMsg)
+            
+            self.finishSendingMessage()
         }
         
-        self.finishSendingMessageAnimated(true)
-        self.dismissViewControllerAnimated(true, completion: nil)
+        
     }
     
     func imagePickerControllerDidCancel(picker: UIImagePickerController) {
@@ -185,29 +257,37 @@ class ChatVC: JSQMessagesViewController, UIImagePickerControllerDelegate, UINavi
     }
     
     func retrieveFirebaseMessages() {
-        firebaseRef.queryLimitedToLast(25).observeEventType(.ChildAdded, withBlock: { (snapShot) -> Void in
+        firebaseRef.queryLimitedToLast(25).observeEventType(.ChildAdded, withBlock: { (snapshot) -> Void in
+
+            let message = Message(snapshot: snapshot)
             
-            print(snapShot.value)
-            
-            let text = snapShot.value["text"] as? String
-            let senderID = snapShot.value["senderId"] as? String
-            let senderName = snapShot.value["senderName"] as? String
-            let date = snapShot.value["timestamp"] as? NSTimeInterval
-            let mediaType = snapShot.value["mediaType"] as? String
-            
-            if senderID == self.senderId {
-                self.setupAvatarColor(senderID!, name: senderName!, incoming: false)
+            if message.senderId == self.senderId {
+                self.setupAvatarColor(message.senderId, name: message.senderDisplayName, incoming: false)
             } else {
-                self.setupAvatarColor(senderID!, name: senderName!, incoming: true)
+                self.setupAvatarColor(message.senderId, name: message.senderDisplayName, incoming: true)
             }
-            
-            let message = JSQMessage(senderId: senderID, senderDisplayName: senderName, date: NSDate(timeIntervalSince1970: date!), text: text)
+
             self.messages.append(message)
             self.finishReceivingMessage()
             
             }) { (error) -> Void in
                 print(error.description)
         }
+    }
+    
+    func resizeImage(image: UIImage) -> UIImage {
+        //Takes the image and resizes it to 50% of its size and width and then returns the scaled image.
+        let size = CGSizeApplyAffineTransform(image.size, CGAffineTransformMakeScale(0.25, 0.25))
+        let hasAlpha = false
+        let scale: CGFloat = 0.0
+        
+        UIGraphicsBeginImageContextWithOptions(size, !hasAlpha, scale)
+        image.drawInRect(CGRect(origin: CGPointZero, size: size))
+        
+        let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return scaledImage
     }
 
 }
